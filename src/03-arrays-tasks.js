@@ -321,8 +321,10 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const numArr = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  arr.sort((a, b) => numArr.indexOf(a) - numArr.indexOf(b));
+  return arr;
 }
 
 /**
@@ -530,15 +532,29 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  return array.reduce((map, item) => {
+    const key = keySelector(item);
+    if (!map.has(key)) {
+      map.set(key, [valueSelector(item)]);
+    } else {
+      const val = map.get(key);
+      val.push(valueSelector(item));
+      map.set(key, val);
+    }
+    return map;
+  }, new Map());
   // const map = new Map();
-  // const keyArr = array.map(keySelector);
-  // keyArr.map((item) => map.set(item, []));
-  // array.map((i, index) => {
-  //   const valArr = array.filter(keySelector === keyArr[index]).map(valueSelector);
-  //   map.set(keyArr[index], valArr);
-  //   return i;
+  // array.map((item) => {
+  //   const key = keySelector(item);
+  //   if (!map.has(key)) {
+  //     map.set(key, [valueSelector(item)]);
+  //   } else {
+  //     const val = map.get(key);
+  //     val.push(valueSelector(item));
+  //     map.set(key, val);
+  //   }
+  //   return item;
   // });
   // return map;
 }
@@ -574,8 +590,14 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce((result, item) => result[item], arr);
+  // if (i === indexes.length - 1) {
+  //   return arr[indexes[i]];
+  // }
+  // const innerArr = arr[indexes[i]];
+  // const j = i + 1;
+  // return getElementByIndexes(innerArr, indexes, j);
 }
 
 
