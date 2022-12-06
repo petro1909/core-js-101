@@ -302,8 +302,24 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cardMap = new Map([
+    ['♣', 0], ['♦', 13], ['♥', 26], ['♠', 39],
+  ]);
+  const letterMap = new Map([
+    ['A', 0], ['J', 10], ['Q', 11], ['K', 12],
+  ]);
+  if (value.length === 3) {
+    return 9 + cardMap.get(value.charAt(2));
+  }
+  const firstCharCode = value.charCodeAt(0);
+  let updatedCode;
+  if (firstCharCode >= 65) {
+    updatedCode = letterMap.get(value.charAt(0));
+  } else {
+    updatedCode = firstCharCode - 49;
+  }
+  return updatedCode + cardMap.get(value.charAt(1));
 }
 
 
