@@ -239,8 +239,8 @@ function toNumber(value, def) {
     return val;
   }
   const numVal = parseInt(val, 10);
-  // eslint-disable-next-line no-restricted-globals
-  if (!isNaN(numVal)) {
+
+  if (!Number.isNaN(numVal)) {
     return numVal;
   }
   return def;
